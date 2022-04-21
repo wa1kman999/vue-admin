@@ -26,10 +26,11 @@
     "lint-staged": "^12.4.0",
     "typescript": "^4.5.4",
     "vite": "^2.9.5",
+    "vite-plugin-eslint": "^1.5.2",
     "vue-tsc": "^0.34.7"
   },
   "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}":[
+    "*.{js,jsx,vue,ts,tsx}": [
       "pnpm run lint",
       "git add"
     ]
