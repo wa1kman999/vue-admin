@@ -13,9 +13,7 @@ const routes: RouteRecordRaw[] = [
   }
 ]
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHashHistory(), // 路由模式
   routes
 })
-
-export default router
