@@ -1,7 +1,8 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
+    'vue/setup-compiler-macros': true
   },
   extends: [
     // "plugin:vue/essential",
@@ -16,5 +17,8 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['vue', '@typescript-eslint'],
-  rules: {}
+  rules: {
+    // 关闭组件的命令规则
+    'vue/multi-word-component-names': 'off'
+  }
 }
