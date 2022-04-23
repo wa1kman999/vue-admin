@@ -18,7 +18,16 @@ module.exports = {
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
-    // 关闭组件的命令规则
+    // 关闭组件的命名规则
     'vue/multi-word-component-names': 'off'
-  }
+  },
+  // 禁用掉api文档里的驼峰监测
+  overrides: [
+    {
+      files: ['src/api/**/*.ts'],
+      rules: {
+        camelcase: 'off'
+      }
+    }
+  ]
 }

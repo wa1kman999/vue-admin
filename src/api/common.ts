@@ -5,5 +5,5 @@ export const getLoginInfo = () => {
   //   method: 'GET',
   //   url: '/ready'
   // })
-  return request.get('/ready')
+  return request.get('/login')
 }
