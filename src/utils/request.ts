@@ -1,8 +1,7 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 const request = axios.create({
-  baseURL: 'http://127.0.0.1:8080'
-
+  baseURL: import.meta.env.VITE_API_BASEURL
 })
 
 // Add a request interceptor
@@ -24,4 +23,7 @@ request.interceptors.response.use(function (response) {
   return Promise.reject(error)
 })
 
-export default request
+export default async <T =any>(config: AxiosRequestConfig) => {
+  const res = await request(config)
+  return res.data.data as T
+}

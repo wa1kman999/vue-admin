@@ -12,11 +12,14 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
+    // 文件夹的别名
     "paths": {
       "@/*":[
         "./src/*"
       ]
-    }
+    },
+    // 为volar指定全局组件类型
+    "types": ["element-plus/global"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
