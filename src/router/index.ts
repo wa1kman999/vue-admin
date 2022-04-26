@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import AppLayout from '@/layout/AppLayout.vue'
+import producteRouter from './modules/product'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -9,8 +10,11 @@ const routes: RouteRecordRaw[] = [
       {
         path: '', // 默认子路由
         name: 'home',
-        component: () => import('@/views/home/index.vue')
-      }
+        component: () => import('@/views/home/index.vue'),
+        meta: { title: '首页' }
+      },
+      // 当前就只写个列表
+      producteRouter
     ]
   },
   {
