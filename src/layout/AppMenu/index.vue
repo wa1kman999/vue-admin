@@ -50,10 +50,15 @@ const store = useToggleStore()
 const collapseIcon = computed(() => {
   return store.getIsCollapse
 })
+
 </script>
 
 <style lang="scss" scoped>
 .el-menu {
   border-right: none;
+}
+.el-menu:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>

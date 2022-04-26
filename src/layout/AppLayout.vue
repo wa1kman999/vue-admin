@@ -1,7 +1,7 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside width="200px">
+      <el-aside>
         <AppMenu />
       </el-aside>
       <el-container>
@@ -30,6 +30,7 @@ import AppHeader from './AppHeader/index.vue'
 .el-aside {
   background-color: #304156;
   color: #333;
+  width: auto;
 }
 
 .el-main {

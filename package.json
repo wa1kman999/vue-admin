@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
+    "@types/nprogress": "^0.2.0",
     "axios": "^0.26.1",
     "element-plus": "^2.1.10",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.13",
+    "screenfull": "^6.0.1",
     "vue": "^3.2.25",
     "vue-router": "4"
   },
