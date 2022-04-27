@@ -27,3 +27,9 @@ export default async <T =any>(config: AxiosRequestConfig) => {
   const res = await request(config)
   return res.data.data as T
 }
+
+// export default <T = any>(config: AxiosRequestConfig) => {
+//   return request(config).then(res => {
+//     return (res.data.data || res.data) as T
+//   }
+// }
