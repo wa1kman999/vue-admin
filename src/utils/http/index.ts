@@ -1,5 +1,6 @@
 import Request from './request'
 import { AxiosResponse } from 'axios'
+import { ElMessage } from 'element-plus'
 
 import type { RequestConfig } from './request/types'
 
@@ -22,7 +23,13 @@ const request = new Request({
     requestInterceptors: config => config,
     // 响应拦截器
     responseInterceptors: (result: AxiosResponse) => {
+      console.log('打印axios的返回值')
       return result
+    },
+    // 响应错误处理
+    responseInterceptorsCatch: (error: any) => {
+      ElMessage.error('网络错误')
+      return Promise.reject(error)
     }
   }
 })

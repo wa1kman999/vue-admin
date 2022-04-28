@@ -49,20 +49,22 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage, FormInstance, FormRules } from 'element-plus'
 import {
   User,
   Lock
 } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/modules/user'
+// import { useUserStore } from '@/store/modules/user'
+import { loginApi } from '@/api/user'
+import { router } from '@/router'
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 
 const ruleFormRef = ref<FormInstance>()
 
 const loginForm = reactive({
-  userName: '',
-  passWord: ''
+  userName: 'fridayWoker_16451689710',
+  passWord: 'abdwu433680'
 })
 
 const rules = reactive<FormRules>({
@@ -79,14 +81,12 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate(async (valid) => {
     if (valid) {
       console.log('submit')
-      const data = await userStore.login(loginForm).then(() => {
-        console.log('xxx')
-      }).catch((error) => {
-        console.log(error)
+      const data = await loginApi(loginForm)
+      if (data.code === 500400) {
+        // 设置token
+        ElMessage.success('登录成功')
+        router.push({ path: '/' })
       }
-
-      )
-      console.log(data)
     } else {
       console.log('error submit!')
       return false
