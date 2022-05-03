@@ -54,17 +54,17 @@ import {
   User,
   Lock
 } from '@element-plus/icons-vue'
-// import { useUserStore } from '@/store/modules/user'
+import { useUserStore } from '@/store/modules/user'
 import { loginApi } from '@/api/user'
 import { router } from '@/router'
 
-// const userStore = useUserStore()
+const userStore = useUserStore()
 
 const ruleFormRef = ref<FormInstance>()
 
 const loginForm = reactive({
-  userName: 'fridayWoker_16451689710',
-  passWord: 'abdwu433680'
+  userName: '小蒋',
+  passWord: 'asasss'
 })
 
 const rules = reactive<FormRules>({
@@ -82,11 +82,10 @@ const submitForm = (formEl: FormInstance | undefined) => {
     if (valid) {
       console.log('submit')
       const data = await loginApi(loginForm)
-      if (data.code === 500400) {
-        // 设置token
-        ElMessage.success('登录成功')
-        router.push({ path: '/' })
-      }
+      ElMessage.success('登录成功')
+      userStore.setUserInfo(data.user)
+      userStore.setToken(data.token)
+      router.replace({ path: '/' })
     } else {
       console.log('error submit!')
       return false

@@ -5,14 +5,16 @@ export interface ILoginReq {
 }
 // 用户信息
 export interface IUserInfo {
-  id: string
+  ID: number
   username: string
-  role: string
-  nickName: string
+  role: number
+  UpdatedAt?: string
+  CreatedAt?: string
+  DeletedAt?: string
 }
 
 // 登录返回
 export interface ILoginResp {
-  userInfo: IUserInfo
+  user: IUserInfo
   token: string
 }

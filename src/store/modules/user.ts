@@ -1,12 +1,12 @@
 // import { ILoginReq, IUserInfo } from '@/api/types/userModel'
 import { defineStore } from 'pinia'
-import { UserInfo } from '#/store'
+import { IUserInfo } from '@/api/types/userModel'
 import { Nullable } from '#/global'
 // import { loginApi } from '@/api/user'
 // import { router } from '@/router'
 
 interface UserState {
-  userInfo: Nullable<UserInfo>
+  userInfo: Nullable<IUserInfo>
   token?: string
 }
 
@@ -17,7 +17,7 @@ export const useUserStore = defineStore({
     token: undefined
   }),
   getters: {
-    getUserInfo (): UserInfo | null {
+    getUserInfo (): IUserInfo | null {
       return this.userInfo
     },
     getToken (): string | undefined {
@@ -42,7 +42,7 @@ export const useUserStore = defineStore({
     //     return Promise.reject(error)
     //   }
     // }，
-    setUserInfo (userInfo: Nullable<UserInfo>) {
+    setUserInfo (userInfo: Nullable<IUserInfo>) {
       this.userInfo = userInfo
     }
   }

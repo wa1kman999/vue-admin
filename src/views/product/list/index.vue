@@ -5,7 +5,6 @@
       draggable
       destroy-on-close
       :close-on-click-modal="false"
-      style="width: calc(100%- 40px);padding: 0px;"
     >
       <div class="xterm-container">
         <Xterm />
@@ -71,22 +70,22 @@ const handleDelete = (index: number, row: User) => {
 const tableData = [
   {
     date: '2016-05-03',
-    name: 'Tom',
+    name: '小蒋狗',
     address: 'No. 189, Grove St, Los Angeles'
   },
   {
     date: '2016-05-02',
-    name: 'Tom',
+    name: '小蒋狗',
     address: 'No. 189, Grove St, Los Angeles'
   },
   {
     date: '2016-05-04',
-    name: 'Tom',
+    name: '小蒋狗',
     address: 'No. 189, Grove St, Los Angeles'
   },
   {
     date: '2016-05-01',
-    name: 'Tom',
+    name: '小蒋狗',
     address: 'No. 189, Grove St, Los Angeles'
   }
 ]

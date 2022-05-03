@@ -4,20 +4,20 @@
     <Breadcrumb />
   </el-space>
   <el-space size="large">
-    <!-- <MenuSearch /> -->
+    <MenuSearch />
     <FullScreen />
     <Notification />
-    <!-- <UserInfo /> -->
+    <UserInfo />
   </el-space>
 </template>
 
 <script lang="ts" setup>
 import ToggleSidebar from './ToggleSidebar.vue'
 import Breadcrumb from './Breadcrumb.vue'
-// import MenuSearch from './MenuSearch.vue'
+import MenuSearch from './MenuSearch.vue'
 import FullScreen from './FullScreen.vue'
 import Notification from './Notification.vue'
-// import UserInfo from './UserInfo.vue'
+import UserInfo from './UserInfo.vue'
 </script>
 
 <style lang="scss" scoped>
