@@ -18,3 +18,8 @@ export interface ILoginResp {
   user: IUserInfo
   token: string
 }
+
+export interface IUserListReq {
+  userName: string
+  role: number
+}
