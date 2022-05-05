@@ -3,6 +3,9 @@ import AppLayout from '@/layout/AppLayout.vue'
 import producteRouter from './modules/product'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import articleRouter from './modules/article'
+import categoryRouter from './modules/category'
+import accountRouter from './modules/account'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -16,7 +19,10 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '首页' }
       },
       // 当前就只写个列表
-      producteRouter
+      producteRouter,
+      articleRouter,
+      categoryRouter,
+      accountRouter
     ]
   },
   {

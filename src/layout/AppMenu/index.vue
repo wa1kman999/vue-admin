@@ -3,14 +3,14 @@
     active-text-color="#ffd04b"
     background-color="#304156"
     class="el-menu-vertical-demo"
-    default-active="2"
     text-color="#fff"
     router
     :collapse="collapseIcon"
+    unique-opened
   >
     <el-menu-item index="/">
       <el-icon>
-        <LocationInformation />
+        <Compass />
       </el-icon>
       <span>首页</span>
     </el-menu-item>
@@ -29,20 +29,42 @@
         产品规格
       </el-menu-item>
     </el-sub-menu>
-    <el-menu-item index="4">
+    <el-sub-menu index="/article">
+      <template #title>
+        <el-icon>
+          <Notebook />
+        </el-icon>
+        <span>文章</span>
+      </template>
+      <el-menu-item index="/article/article_list">
+        文章列表
+      </el-menu-item>
+      <el-menu-item index="/article/create_article">
+        新建文章
+      </el-menu-item>
+    </el-sub-menu>
+    <el-menu-item index="/category/category_list">
       <el-icon>
-        <setting />
+        <Operation />
       </el-icon>
-      <span>权限</span>
+      <span>分类管理</span>
+    </el-menu-item>
+    <el-menu-item index="/account/account_list">
+      <el-icon>
+        <User />
+      </el-icon>
+      <span>账号管理</span>
     </el-menu-item>
   </el-menu>
 </template>
 
 <script setup lang="ts">
 import {
-  LocationInformation,
+  Compass,
   ShoppingBag,
-  Setting
+  Notebook,
+  User,
+  Operation
 } from '@element-plus/icons-vue'
 import { useToggleStore } from '@/store/modules/toggle'
 import { computed } from 'vue'

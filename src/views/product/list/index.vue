@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog
+    <!-- <el-dialog
       v-model="dialogVisible"
       draggable
       destroy-on-close
@@ -9,7 +9,8 @@
       <div class="xterm-container">
         <Xterm />
       </div>
-    </el-dialog>
+    </el-dialog> -->
+    <Xterm v-show="dialogVisible" />
     <el-table
       :data="tableData"
       border
