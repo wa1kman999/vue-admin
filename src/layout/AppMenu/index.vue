@@ -55,6 +55,12 @@
       </el-icon>
       <span>账号管理</span>
     </el-menu-item>
+    <el-menu-item index="/system/system_state">
+      <el-icon>
+        <Cpu />
+      </el-icon>
+      <span>服务器状态</span>
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -64,7 +70,8 @@ import {
   ShoppingBag,
   Notebook,
   User,
-  Operation
+  Operation,
+  Cpu
 } from '@element-plus/icons-vue'
 import { useToggleStore } from '@/store/modules/toggle'
 import { computed } from 'vue'

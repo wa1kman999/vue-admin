@@ -10,7 +10,7 @@
         <Xterm />
       </div>
     </el-dialog> -->
-    <Xterm v-show="dialogVisible" />
+    <!-- <Xterm v-show="dialogVisible" /> -->
     <el-table
       :data="tableData"
       border
@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Xterm from '@/components/Xterm.vue'
+// import Xterm from '@/components/Xterm.vue'
 
 interface User {
   date: string

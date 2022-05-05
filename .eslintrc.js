@@ -19,7 +19,9 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     // 关闭组件的命名规则
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    // 关闭没有使用在定义之前
+    'no-use-before-define': 'off'
   },
   // 禁用掉api文档里的驼峰监测
   overrides: [

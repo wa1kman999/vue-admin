@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css'
 import articleRouter from './modules/article'
 import categoryRouter from './modules/category'
 import accountRouter from './modules/account'
+import systemRouter from './modules/system'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -22,7 +23,8 @@ const routes: RouteRecordRaw[] = [
       producteRouter,
       articleRouter,
       categoryRouter,
-      accountRouter
+      accountRouter,
+      systemRouter
     ]
   },
   {
