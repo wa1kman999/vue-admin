@@ -8,28 +8,27 @@
       >
         <el-form-item label="用户名">
           <el-input
+            :prefix-icon="Search"
             v-model="searchInfo.userName"
-            placeholder="用户名"
           />
         </el-form-item>
         <el-form-item label="角色">
           <el-input
+            :prefix-icon="Search"
             v-model="searchInfo.role"
-            placeholder="角色"
           />
         </el-form-item>
         <el-form-item>
           <el-button
-            size="small"
             type="primary"
-            icon="search"
+            :icon="Search"
             @click="onSubmit"
           >
             查询
           </el-button>
           <el-button
-            size="small"
-            icon="refresh"
+            type="info"
+            :icon="Refresh"
             @click="onReset"
           >
             重置
@@ -60,12 +59,12 @@
         <el-pagination
           v-model:currentPage="currentPage"
           v-model:page-size="pageSize"
-          :page-sizes="[100, 200, 300, 400]"
+          :page-sizes="[10, 20, 50, 100]"
           :small="small"
           :disabled="disabled"
           :background="background"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="100"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
@@ -75,17 +74,17 @@
 </template>
 
 <script lang="ts" setup>
-import { IUserListReq } from '@/api/types/userModel'
+import { Search, Refresh } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 const currentPage = ref(1)
-const pageSize = ref(100)
+const pageSize = ref(10)
 const small = ref(false)
 const background = ref(false)
 const disabled = ref(false)
 
-const searchInfo = ref<IUserListReq>({
+const searchInfo = ref({
   userName: '',
-  role: 0
+  role: ''
 })
 
 const onSubmit = () => {
@@ -153,7 +152,7 @@ const handleCurrentChange = (val: number) => {
     border-radius: 2px;
 }
 .pagination-container {
-  padding: 30px;
+  padding: 20px;
     display: flex;
     justify-content: flex-end;
     .el-pagination__editor {
