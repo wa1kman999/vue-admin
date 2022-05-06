@@ -10,5 +10,6 @@ declare module '*.vue' {
 // eslint-disable-next-line no-unused-vars
 interface ImportMetaEnv {
   readonly VITE_API_BASEURL: string
+  readonly VITE_WS_BASEURL: string
   // 更多环境变量...
 }

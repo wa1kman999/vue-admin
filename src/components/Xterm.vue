@@ -13,6 +13,7 @@ import 'xterm/css/xterm.css'
 import { Terminal } from 'xterm'
 import { FitAddon } from 'xterm-addon-fit'
 import { AttachAddon } from 'xterm-addon-attach'
+import { useRoute } from 'vue-router'
 const xtermRef = ref<HTMLInputElement | null>(null)
 let myws: WebSocket
 let myterm: Terminal
@@ -33,7 +34,8 @@ onBeforeUnmount(() => {
 // 初始化客户端
 function initTerm () {
   const term = new Terminal()
-  const ws = new WebSocket('ws://127.0.0.1:8080/ws')
+  const route = useRoute()
+  const ws = new WebSocket(import.meta.env.VITE_WS_BASEURL + '/devops/v1/ws?id=' + route.query.id)
   const attachAddon = new AttachAddon(ws)
   const fitAddon = new FitAddon()
   term.loadAddon(attachAddon)
