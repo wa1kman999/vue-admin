@@ -20,8 +20,7 @@ export interface ILoginResp {
 
 // 用户列表参数
 export interface IUserListReq extends IPaginationReq{
-  userName?: string
-  role?: number | ''
+  userName: string
 }
 
 // 用户列表返回
