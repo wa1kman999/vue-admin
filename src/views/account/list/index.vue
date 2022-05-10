@@ -46,49 +46,36 @@
           :data="tableData"
         >
           <el-table-column
-            type="selection"
-            width="55"
-          />
-          <el-table-column
-            align="left"
             label="id"
-            min-width="150"
+            min-width="100"
             prop="id"
           />
           <el-table-column
-            align="left"
             label="名字"
-            min-width="150"
+            min-width="100"
             prop="userName"
           />
           <el-table-column
-            align="left"
             label="角色"
-            min-width="150"
+            min-width="100"
             prop="role"
           />
           <el-table-column
-            align="left"
+            align="center"
             label="操作"
-            min-width="150"
+            min-width="100"
           >
             <template #default="scope">
               <el-button
-                icon="edit"
-                size="small"
-                type="text"
+                :icon="Edit"
+                type="primary"
                 @click="editApiFunc(scope.row)"
-              >
-                编辑
-              </el-button>
+              />
               <el-button
-                icon="delete"
-                size="small"
-                type="text"
+                :icon="Delete"
+                type="danger"
                 @click="delApiFunc(scope.row)"
-              >
-                删除
-              </el-button>
+              />
             </template>
           </el-table-column>
         </el-table>
@@ -109,9 +96,9 @@
 </template>
 
 <script lang="ts" setup>
-import { IUserInfo } from '@/api/types/userModel'
+import type { IUserInfo } from '@/api/types/userModel'
 import { getUserList } from '@/api/user'
-import { Search, Refresh, Plus } from '@element-plus/icons-vue'
+import { Search, Refresh, Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 
 // const page = ref(1)
