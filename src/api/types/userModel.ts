@@ -1,3 +1,5 @@
+import { IPaginationReq, IPaginationResp } from './common'
+
 // 登录参数
 export interface ILoginReq {
   userName: string
@@ -5,12 +7,9 @@ export interface ILoginReq {
 }
 // 用户信息
 export interface IUserInfo {
-  ID: number
+  id: number
   username: string
   role: number
-  UpdatedAt?: string
-  CreatedAt?: string
-  DeletedAt?: string
 }
 
 // 登录返回
@@ -19,7 +18,13 @@ export interface ILoginResp {
   token: string
 }
 
-export interface IUserListReq {
-  userName: string
-  role: number
+// 用户列表参数
+export interface IUserListReq extends IPaginationReq{
+  userName?: string
+  role?: number | ''
+}
+
+// 用户列表返回
+export interface IUserListResp extends IPaginationResp{
+  data: IUserInfo[]
 }

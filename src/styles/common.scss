@@ -3,6 +3,22 @@
   padding: 0;
 }
 
+.search-container {
+    .el-collapse {
+        border: none;
+        .el-collapse-item__header,
+        .el-collapse-item__wrap {
+            border-bottom: none;
+        }
+    }
+    padding: 24px;
+    padding-bottom: 2px;
+    background-color: #fff;
+    border-radius: 2px;
+    margin-bottom: 12px;
+}
+
+
 .table-container {
   padding: 24px;
   background-color: #fff;

@@ -1,12 +1,8 @@
-export interface IServerListResp {
-  pagination:IPagination
-  data: IServerInfo[]
-}
+import { IPaginationResp } from './common'
 
-interface IPagination {
-  page: number
-  pageSize: number
-  total: number
+export interface IServerListResp {
+  pagination:IPaginationResp
+  data: IServerInfo[]
 }
 
 export interface IServerInfo {
@@ -19,4 +15,15 @@ export interface IServerInfo {
 export interface IListReq {
   page: number
   pageSize: number
+}
+
+// 获取文件夹req
+export interface IGetDirReq {
+  id: string
+}
+
+export interface IDirInfo {
+  id: number
+  name: string
+  type: string
 }

@@ -39,34 +39,63 @@
     <div class="table-container">
       <el-table
         :data="tableData"
-        stripe
-        style="width: 100%"
       >
         <el-table-column
-          prop="id"
+          type="selection"
+          width="55"
+        />
+        <el-table-column
+          align="left"
           label="id"
+          min-width="150"
+          prop="id"
         />
         <el-table-column
+          align="left"
+          label="名字"
+          min-width="150"
           prop="userName"
-          label="用户名"
         />
         <el-table-column
-          prop="role"
+          align="left"
           label="角色"
+          min-width="150"
+          prop="role"
         />
+        <el-table-column
+          align="left"
+          label="操作"
+          min-width="150"
+        >
+          <template #default="scope">
+            <el-button
+              icon="edit"
+              size="small"
+              type="text"
+              @click="editApiFunc(scope.row)"
+            >
+              编辑
+            </el-button>
+            <el-button
+              icon="delete"
+              size="small"
+              type="text"
+              @click="delApiFunc(scope.row)"
+            >
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="pagination-container">
         <el-pagination
-          v-model:currentPage="currentPage"
-          v-model:page-size="pageSize"
-          :page-sizes="[10, 20, 50, 100]"
-          :small="small"
-          :disabled="disabled"
-          :background="background"
+          :current-page="searchInfo.page"
+          :page-size="searchInfo.pageSize"
+          :page-sizes="[10, 30, 50, 100]"
+          :total="total"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="100"
-          @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
+          @size-change="handleSizeChange"
         />
       </div>
     </div>
@@ -74,76 +103,68 @@
 </template>
 
 <script lang="ts" setup>
+import { IUserInfo } from '@/api/types/userModel'
+import { getUserList } from '@/api/user'
 import { Search, Refresh } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-const currentPage = ref(1)
-const pageSize = ref(10)
-const small = ref(false)
-const background = ref(false)
-const disabled = ref(false)
+import { reactive, ref } from 'vue'
+// const page = ref(1)
+const total = ref(0)
+// const pageSize = ref(10)
+const tableData = ref<IUserInfo[]>([])
 
-const searchInfo = ref({
+const searchInfo = reactive({
+  page: 1,
+  pageSize: 10,
   userName: '',
-  role: ''
+  // todo 页面怎么不显示
+  role: 0
 })
 
-const onSubmit = () => {
-  console.log('tijiao')
+// 搜索提交
+const onSubmit = async () => {
+  getTableData()
 }
+// 重置搜索
 const onReset = () => {
-  console.log('重置')
+  searchInfo.role = 0
+  searchInfo.userName = ''
+  getTableData()
 }
-const tableData = [
-  {
-    id: '2016-05-03',
-    userName: 'Tom',
-    role: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    id: '2016-05-02',
-    userName: 'Tom',
-    role: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    id: '2016-05-04',
-    userName: 'Tom',
-    role: 'No. 189, Grove St, Los Angeles'
-  },
-  {
-    id: '2016-05-01',
-    userName: 'Tom',
-    role: 'No. 189, Grove St, Los Angeles'
-  }
-]
+
+// 编辑操作
+const editApiFunc = (row: IUserInfo) => {
+  console.log(row.id)
+}
+
+// 删除操作
+const delApiFunc = (row: IUserInfo) => {
+  console.log(row.username)
+}
+// 分页
 const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
+  searchInfo.pageSize = val
+  getTableData()
 }
+
 const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+  searchInfo.page = val
+  getTableData()
 }
+// 查询
+const getTableData = async () => {
+  const table = await getUserList(searchInfo)
+  tableData.value = table.data
+  total.value = table.total
+}
+// 调用查询
+getTableData()
 </script>
 <style lang="scss" scoped>
-.search-container {
-  background-color: red;
-}
 .button-box {
   padding: 10px 20px;
   .el-button {
     float: right;
   }
 }
-.search-container {
-    .el-collapse {
-        border: none;
-        .el-collapse-item__header,
-        .el-collapse-item__wrap {
-            border-bottom: none;
-        }
-    }
-    padding: 24px;
-    padding-bottom: 2px;
-    background-color: #fff;
-    border-radius: 2px;
-    margin-bottom: 12px;
-}
+
 </style>
