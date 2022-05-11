@@ -43,7 +43,7 @@
             type="text"
             @click="editApiFunc(scope.row)"
           >
-            编辑
+            上传下载
           </el-button>
           <el-button
             icon="edit"
@@ -79,9 +79,10 @@
 </template>
 
 <script setup lang="ts">
-import { getServerList } from '@/api/server'
+import { getServerList, pwd } from '@/api/server'
 import { IServerInfo } from '@/api/types/serverModel'
 import { router } from '@/router'
+// import { useServerStore } from '@/store/modules/server'
 import { ref } from 'vue'
 
 const dialogVisible = ref(false)
@@ -89,6 +90,7 @@ const page = ref(1)
 const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref<IServerInfo[]>([])
+// const store = useServerStore()
 
 // 新窗口打开webshell
 const routerJump = (param: string) => {
@@ -102,8 +104,12 @@ const routerJump = (param: string) => {
   window.open(newpage.href, '_blank') // 打开新的窗口(跳转路径，跳转类型)
 }
 // 编辑操作
-const editApiFunc = (row: IServerInfo) => {
+const editApiFunc = async (row: IServerInfo) => {
   console.log(row.id)
+  const homePath = await pwd({ id: row.id })
+  // store.setServerId(row.id)
+  // store.setHomePath(homePath.path)
+  router.push({ path: '/product/product_attr', query: { id: row.id, homePath: homePath.path } })
 }
 
 // 连接操作

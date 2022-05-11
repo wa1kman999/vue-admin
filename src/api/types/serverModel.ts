@@ -20,10 +20,13 @@ export interface IListReq {
 // 获取文件夹req
 export interface IGetDirReq {
   id: string
+  path: string
 }
 
 export interface IDirInfo {
   id: number
   name: string
-  type: string
+  size: number
+  modTime: string
+  isDir: boolean
 }

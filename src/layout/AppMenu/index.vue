@@ -20,14 +20,17 @@
         <el-icon>
           <ShoppingBag />
         </el-icon>
-        <span>产品</span>
+        <span>服务器</span>
       </template>
       <el-menu-item index="/product/product_list">
-        产品列表
+        服务器列表
       </el-menu-item>
-      <el-menu-item index="/product/product_attr">
-        产品规格
-      </el-menu-item>
+      <!-- <el-menu-item
+        index="/product/product_attr"
+        disabled
+      >
+        上传下载
+      </el-menu-item> -->
     </el-sub-menu>
     <el-sub-menu index="/article">
       <template #title>

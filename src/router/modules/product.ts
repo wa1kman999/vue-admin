@@ -4,7 +4,7 @@ const routes: RouteRecordRaw = {
   path: 'product',
   component: RouterView,
   meta: {
-    title: '产品'
+    title: '服务器'
   },
   children: [
     {
@@ -12,7 +12,7 @@ const routes: RouteRecordRaw = {
       name: 'product_list',
       component: () => import('@/views/product/list/index.vue'),
       meta: {
-        title: '产品列表'
+        title: '服务器列表'
       }
     },
     {
@@ -20,7 +20,7 @@ const routes: RouteRecordRaw = {
       name: 'product_attr',
       component: () => import('@/views/product/attr/index.vue'),
       meta: {
-        title: '产品规格'
+        title: '上传下载'
       }
     }
   ]

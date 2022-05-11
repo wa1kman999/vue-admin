@@ -10,15 +10,6 @@ export function getServerList (data: IListReq) {
   })
 }
 
-// 获取当前文件夹
-export function getDir (data: IGetDirReq) {
-  return request<IDirInfo[]>({
-    url: '/devops/v1/getDir',
-    method: 'POST',
-    data
-  })
-}
-
 // 上传文件
 export function uploadFile (data: {
   id: string
@@ -33,5 +24,23 @@ export function uploadFile (data: {
     url: '/devops/v1/upload',
     method: 'POST',
     data: fd
+  })
+}
+
+// 获取当前路径
+export function pwd (data: {id: string}) {
+  return request<{path: string}>({
+    url: '/devops/v1/pwd',
+    method: 'POST',
+    data
+  })
+}
+
+// 获取当前文件夹
+export function getDir (data: IGetDirReq) {
+  return request<IDirInfo[]>({
+    url: '/devops/v1/getDir',
+    method: 'POST',
+    data
   })
 }

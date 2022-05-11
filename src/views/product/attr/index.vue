@@ -1,10 +1,11 @@
 <template>
   <div>
-    attr页面
+    <Upload />
   </div>
 </template>
 
 <script setup lang="ts">
+import Upload from '@/views/webshell/upload/index.vue'
 
 </script>
 
