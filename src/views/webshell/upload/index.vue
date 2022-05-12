@@ -54,7 +54,7 @@
           :data="tableData"
         >
           <el-table-column
-            label="名字"
+            label="Name"
             min-width="100"
           >
             <template #default="scope">
@@ -84,49 +84,54 @@
             </template>
           </el-table-column>
           <el-table-column
-            label="大小"
+            label="Size"
             min-width="100"
             prop="size"
           />
           <el-table-column
-            label="上次修改时间"
+            label="Access"
+            min-width="100"
+            prop="mode"
+          />
+          <el-table-column
+            label="Last modified"
             min-width="100"
             prop="modTime"
           />
           <el-table-column
             align="center"
-            label="操作"
+            label="Operation"
             min-width="100"
           >
             <template #default="scope">
-              <span><el-upload
-                ref="uploadRef"
+              <el-upload
                 action="xxx"
-                :http-request="handleUpload"
-                v-show="scope.row.isDir"
                 :show-file-list="false"
+                v-if="isDir(scope.row.mode) === 'dir'"
+                :http-request="handleUpload"
+                :on-change="handleChange"
               >
                 <template #trigger>
                   <el-button
-                    :disabled="!scope.row.isDir"
                     :icon="UploadFilled"
-                    type="success"
+                    type="primary"
                     @click="beforeUpload(scope.row)"
                   />
                 </template>
-              </el-upload></span>
+              </el-upload>
               <el-button
-                v-show="!scope.row.isDir"
+                v-else-if="isDir(scope.row.mode) === 'file'"
                 :icon="Download"
-                type="warning"
+                type="success"
                 @click="downloadApiFunc(scope.row)"
               />
-
-              <!-- <el-button
-                :disabled="!scope.row.isDir"
-                :icon="UploadFilled"
-                type="success"
-              /> -->
+              <el-button
+                v-else
+                :icon="QuestionFilled"
+                type="info"
+                @click="downloadApiFunc(scope.row)"
+                :disabled="true"
+              />
             </template>
           </el-table-column>
         </el-table>
@@ -136,22 +141,21 @@
 </template>
 
 <script lang="ts" setup>
-import { getDir, uploadFile } from '@/api/server'
+import { download, getDir, uploadFile } from '@/api/server'
 import { IDirInfo } from '@/api/types/serverModel'
 import { router } from '@/router'
-import { Search, Refresh, CaretTop, UploadFilled, Download, FolderOpened, Document, Platform } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import { Search, Refresh, CaretTop, UploadFilled, Download, FolderOpened, Document, Platform, QuestionFilled } from '@element-plus/icons-vue'
+import { ElMessage, ElNotification, UploadProps } from 'element-plus'
 import { onMounted, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const tableData = ref<IDirInfo[]>([])
 const route = useRoute()
-
+const uploadPath = ref('')
 const searchInfo = reactive({
   id: route.query.id as string,
   path: route.query.homePath as string
 })
-const uploadPath = ref('')
 
 // 搜索提交
 const onSubmit = async () => {
@@ -200,10 +204,10 @@ const pointApiFunc = (row: IDirInfo) => {
   getTableData()
 }
 const beforeUpload = (row: IDirInfo) => {
-  console.log(row.name)
   uploadPath.value = row.name
 }
 
+// 上传
 const handleUpload = async ({ file }: { file: File }) => {
   await uploadFile({
     id: searchInfo.id,
@@ -213,8 +217,14 @@ const handleUpload = async ({ file }: { file: File }) => {
   ElMessage.success('上传成功')
 }
 // 下载操作
-const downloadApiFunc = (row: IDirInfo) => {
-  console.log(row.id)
+const downloadApiFunc = async (row: IDirInfo) => {
+  const fileData = await download({ id: searchInfo.id, path: searchInfo.path !== '/' ? `${searchInfo.path}/${row.name}` : `${searchInfo.path}${row.name}` })
+  const link = document.createElement('a') // a标签下载
+  link.href = URL.createObjectURL(fileData)
+  link.download = row.name // dowload属性指定文件名
+  link.click() // click()事件触发下载
+  URL.revokeObjectURL(link.href) // 释放内存
+  ElNotification.success('下载成功')
 }
 // 查询
 const getTableData = async () => {
@@ -222,6 +232,22 @@ const getTableData = async () => {
   tableData.value = table
 }
 
+// 判断是否是文件夹
+const isDir = (s: string) => {
+  if (s.startsWith('d')) {
+    return 'dir'
+  } else if (s.startsWith('-')) {
+    return 'file'
+  } else {
+    return 'notall'
+  }
+}
+
+// todo进度条
+const handleChange: UploadProps['onChange'] = (uploadFile) => {
+  console.log(uploadFile.name)
+  console.log(uploadFile.percentage)
+}
 onMounted(() => {
   getTableData()
 })
@@ -246,6 +272,9 @@ onMounted(() => {
 
 .item {
   margin-bottom: 18px;
+}
+.box-card{
+   height: 100%;
 }
 
 </style>

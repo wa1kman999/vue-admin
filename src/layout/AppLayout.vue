@@ -10,6 +10,12 @@
         </el-header>
         <el-main>
           <router-view />
+          <el-backtop
+            :right="100"
+            :bottom="100"
+            target=".el-main"
+            :visibility-height="20"
+          />
         </el-main>
       </el-container>
     </el-container>
@@ -36,6 +42,7 @@ import AppHeader from './AppHeader/index.vue'
 .el-main {
   background-color: #E9EEF3;
   color: #333;
+  height: 100vh;
 }
 
 .el-container {

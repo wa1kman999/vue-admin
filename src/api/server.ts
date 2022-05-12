@@ -44,3 +44,17 @@ export function getDir (data: IGetDirReq) {
     data
   })
 }
+
+// 下载文件
+export function download (data: {id:string, path:string}) {
+  return request<Blob>({
+    url: '/devops/v1/download',
+    method: 'POST',
+    // 防止相同的请求
+    params: {
+      stamp: Date.now()
+    },
+    responseType: 'blob',
+    data
+  })
+}
