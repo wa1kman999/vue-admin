@@ -1,13 +1,13 @@
 <template>
-  <div>
-    分类页面
-  </div>
+  <Tinymce
+    ref="editorRef"
+    v-model="value"
+  />
 </template>
 
-<script setup lang="ts">
-
+<script lang="ts" setup>
+import Tinymce from '@/components/TinymceEditor/index.vue'
+import { ref } from 'vue'
+const editorRef = ref(null)
+const value = ref(null)
 </script>
-
-<style scoped>
-
-</style>
