@@ -67,6 +67,7 @@
         label="文章内容:"
       >
         <TinymceEditor
+          class="tinymce-container"
           v-model="form.content"
         />
       </el-form-item>
@@ -127,4 +128,7 @@ const onSubmit = () => {
 </script>
 
 <style lang="scss" scoped>
+.tinymce-container {
+  width: 100%;
+}
 </style>
