@@ -18,7 +18,7 @@
     <el-sub-menu index="/product">
       <template #title>
         <el-icon>
-          <ShoppingBag />
+          <Platform />
         </el-icon>
         <span>服务器</span>
       </template>
@@ -43,7 +43,7 @@
         文章列表
       </el-menu-item>
       <el-menu-item index="/article/create_article">
-        新建文章
+        编辑文章
       </el-menu-item>
     </el-sub-menu>
     <el-menu-item index="/category/category_list">
@@ -70,7 +70,7 @@
 <script setup lang="ts">
 import {
   Compass,
-  ShoppingBag,
+  Platform,
   Notebook,
   User,
   Operation,
