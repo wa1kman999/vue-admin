@@ -16,12 +16,19 @@
             />
           </el-form-item>
           <el-form-item label="文章分类:">
-            <el-select>
+            <el-select
+              v-model="form.cid"
+              clearable
+            >
               <el-option
-                v-for="item in categoryoOtions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                label="未知分类"
+                :value="0"
+              />
+              <el-option
+                v-for="item in categoryOptions"
+                :key="item.ID"
+                :label="item.name"
+                :value="item.ID"
               />
             </el-select>
           </el-form-item>
@@ -44,7 +51,8 @@
           <el-form-item label="缩略图:">
             <el-upload
               class="upload-demo"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="xxx"
+              :http-request="handleUpload"
               multiple
               :limit="3"
             >
@@ -84,46 +92,53 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import TinymceEditor from '@/components/TinymceEditor.vue'
 import { UploadFilled } from '@element-plus/icons-vue'
+import { getCategoryList } from '@/api/category'
+import { ICategoryInfo } from '@/api/types/categoryModel'
+import { CreateArticle, uploadFile } from '@/api/article'
+import { ElMessage } from 'element-plus'
 
-// do not use same name with ref
+// 提交表单
 const form = reactive({
   title: '',
-  category: '',
+  cid: 0,
   desc: '',
   img: '',
   content: ''
 })
+// 分类选择项数组
+const categoryOptions = ref<ICategoryInfo[]>([])
 
-// 分类的选项
-const categoryoOtions = [
-  {
-    value: 'Option1',
-    label: 'Option1'
-  },
-  {
-    value: 'Option2',
-    label: 'Option2'
-  },
-  {
-    value: 'Option3',
-    label: 'Option3'
-  },
-  {
-    value: 'Option4',
-    label: 'Option4'
-  },
-  {
-    value: 'Option5',
-    label: 'Option5'
-  }
-]
-
-const onSubmit = () => {
-  console.log('submit!')
+// 上传
+const handleUpload = async ({ file }: { file: File }) => {
+  const filePath = await uploadFile({
+    file
+  })
+  form.img = filePath.path
+  console.log(form)
+  ElMessage.success('上传成功')
 }
+
+// 获取分类的选项
+const getCategoryData = async () => {
+  const categoryList = await getCategoryList({
+    page: 1,
+    pageSize: 1000
+  })
+  categoryOptions.value = categoryList.data
+}
+
+const onSubmit = async () => {
+  await CreateArticle(form)
+  ElMessage.success('新建成功')
+}
+
+onMounted(() => {
+  // 获取分类的选项
+  getCategoryData()
+})
 
 </script>
 

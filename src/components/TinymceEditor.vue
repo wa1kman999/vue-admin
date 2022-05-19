@@ -1,7 +1,7 @@
 <template>
   <div>
     <Editor
-      v-model="state.contentValue"
+      v-model="state.content"
       :init="init"
       :disabled="disabled"
       @click="onClick"
@@ -69,7 +69,7 @@ const props = defineProps({
   }
 })
 const state = reactive({
-  contentValue: props.value
+  content: props.value
 })
 
 const init = ref<RawEditorOptions>({
@@ -83,11 +83,11 @@ const init = ref<RawEditorOptions>({
   // height: 600, // 注：引入autoresize插件时，此属性失效
   placeholder: '在这里输入文字...',
   branding: false, // tiny技术支持信息是否显示
-  resize: false, // 编辑器宽高是否可变，false-否,true-高可变，'both'-宽高均可，注意引号
+  resize: 'both', // 编辑器宽高是否可变，false-否,true-高可变，'both'-宽高均可，注意引号
   // statusbar: false,  //最下方的元素路径和字数统计那一栏是否显示
   elementpath: false, // 元素路径是否显示
   content_css: ['tinymce/skins/content/default/content.css'],
-  menubar: false
+  menubar: 'file edit insert view format table'
   // content_style: 'p {margin: 5px 0; font-size: 14px}',
   // images_upload_url: '/demo/upimg.php',  //后端处理程序的url
   // images_upload_base_path: '/demo',  //相对基本路径--关于图片上传建议查看--http://tinymce.ax-z.cn/general/upload-images.php
@@ -109,11 +109,11 @@ onMounted(() => {
 watch(
   () => props.value,
   (newValue) => {
-    state.contentValue = newValue
+    state.content = newValue
   }
 )
 watch(
-  () => state.contentValue,
+  () => state.content,
   (newValue) => {
     emits('input', newValue)
   }

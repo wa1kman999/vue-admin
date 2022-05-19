@@ -19,3 +19,8 @@ export interface IArticleListReq extends IPaginationReq{
 export interface IArticleListResp extends IPaginationResp{
   data: IArticleInfo[]
 }
+// 上传图片返回
+export interface pathInfo {
+  path: string
+
+}

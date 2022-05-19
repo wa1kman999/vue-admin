@@ -2,13 +2,13 @@ import { IPaginationReq, IPaginationResp } from './common'
 
 // 分类信息信息
 export interface ICategoryInfo {
-  id: number
+  ID: number
   name: string
 }
 
 // 分类列表参数
 export interface ICategoryListReq extends IPaginationReq{
-  name: string
+  name?: string
 }
 
 // 分类列表返回
