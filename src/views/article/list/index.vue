@@ -73,7 +73,7 @@
               <div>
                 <el-image
                   style="width: 100px; height: 100px"
-                  :src="scope.row.img"
+                  :src="imgUrl(scope.row.img)"
                   :initial-index="4"
                   fit="cover"
                 />
@@ -119,7 +119,7 @@
 import { getArticleList } from '@/api/article'
 import { IArticleInfo } from '@/api/types/articleModel'
 import { Search, Refresh, Plus, Edit, Delete } from '@element-plus/icons-vue'
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 // const page = ref(1)
 const total = ref(0)
@@ -167,8 +167,15 @@ const getTableData = async () => {
   tableData.value = table.data
   total.value = table.total
 }
+// 图片地址
+const imgUrl = (path: string): string => {
+  return `${import.meta.env.VITE_API_BASEURL}/goblog/v1/article/img/${path}`
+}
 // 调用查询
-getTableData()
+onMounted(() => {
+  getTableData()
+})
+
 </script>
 <style lang="scss" scoped>
 .button-box {
