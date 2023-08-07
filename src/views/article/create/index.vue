@@ -77,6 +77,7 @@
         <TinymceEditor
           class="tinymce-container"
           v-model="form.content"
+          @on-click="getTxt"
         />
       </el-form-item>
       <el-form-item>
@@ -133,6 +134,14 @@ const getCategoryData = async () => {
 const onSubmit = async () => {
   await CreateArticle(form)
   ElMessage.success('新建成功')
+}
+
+// 获取编辑器的内容
+const getTxt = (txt: any) => {
+  console.log('粗发函数没有哦')
+  console.log(txt)
+  console.log(typeof (txt))
+  console.log(form.content)
 }
 
 onMounted(() => {

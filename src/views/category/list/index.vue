@@ -50,11 +50,38 @@
             min-width="100"
             prop="ID"
           />
-          <el-table-column
+          <!-- <el-table-column
             label="分类名"
             min-width="100"
             prop="name"
-          />
+          /> -->
+          <el-table-column
+            label="分类名"
+            prop="name"
+            min-width="100"
+          >
+            <template #default="scope">
+              <div>
+                <el-popover
+                  v-if="scope.row.name"
+                  placement="left-start"
+                  trigger="click"
+                  @show="getTest(scope.row)"
+                >
+                  <div class="popover-box">
+                    <pre>{{ fmtBody(testData) }}</pre>
+                  </div>
+                  <template #reference>
+                    <el-icon style="cursor: pointer;">
+                      查看
+                    </el-icon>
+                  </template>
+                </el-popover>
+
+                <span v-else>无</span>
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column
             align="center"
             label="操作"
@@ -91,7 +118,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCategoryList } from '@/api/category'
+import { getCategoryList, getCategoryTest } from '@/api/category'
 import type { ICategoryInfo } from '@/api/types/categoryModel'
 import { Search, Refresh, Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
@@ -100,6 +127,7 @@ import { reactive, ref } from 'vue'
 const total = ref(0)
 // const pageSize = ref(10)
 const tableData = ref<ICategoryInfo[]>([])
+const testData = ref('')
 
 const searchInfo = reactive({
   page: 1,
@@ -119,7 +147,7 @@ const onReset = () => {
 
 // 编辑操作
 const editApiFunc = (row: ICategoryInfo) => {
-  console.log(row.id)
+  console.log(row.ID)
 }
 
 // 删除操作
@@ -142,8 +170,23 @@ const getTableData = async () => {
   tableData.value = table.data
   total.value = table.total
 }
+
+// 获取测试数据
+const getTest = async (row: ICategoryInfo) => {
+  const t = await getCategoryTest({ name: row.name })
+  testData.value = t.res as string
+}
+
 // 调用查询
 getTableData()
+
+const fmtBody = (value:string) => {
+  try {
+    return JSON.parse(value)
+  } catch (err) {
+    return value
+  }
+}
 </script>
 <style lang="scss" scoped>
 .button-box {
@@ -165,5 +208,14 @@ getTableData()
 .item {
   margin-bottom: 18px;
 }
-
+.popover-box {
+  background: #112435;
+  color: #f08047;
+  height: 600px;
+  width: 420px;
+  overflow: auto;
+}
+.popover-box::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
 </style>

@@ -34,3 +34,12 @@ export function CreateArticle (data: {
     data
   })
 }
+
+// 新建文章
+export function DelArticle (data: {
+  id: number}) {
+  return request<{}>({
+    url: '/goblog/v1/article/' + data.id,
+    method: 'DELETE'
+  })
+}

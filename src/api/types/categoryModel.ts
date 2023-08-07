@@ -15,3 +15,13 @@ export interface ICategoryListReq extends IPaginationReq{
 export interface ICategoryListResp extends IPaginationResp{
   data: ICategoryInfo[]
 }
+
+// 分类测试参数
+export interface ICategoryTestReq{
+  name?: string
+}
+
+// 分类列表返回
+export interface ICategoryTestResp{
+  res?: string
+}

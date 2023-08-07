@@ -91,11 +91,18 @@
                 type="primary"
                 @click="editApiFunc(scope.row)"
               />
-              <el-button
-                :icon="Delete"
-                type="danger"
-                @click="delApiFunc(scope.row)"
-              />
+
+              <el-popconfirm
+                @confirm="delApiFunc(scope.row)"
+                title="Are you sure to delete this?"
+              >
+                <template #reference>
+                  <el-button
+                    :icon="Delete"
+                    type="danger"
+                  />
+                </template>
+              </el-popconfirm>
             </template>
           </el-table-column>
         </el-table>
@@ -116,7 +123,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getArticleList } from '@/api/article'
+import { getArticleList, DelArticle } from '@/api/article'
 import { IArticleInfo } from '@/api/types/articleModel'
 import { Search, Refresh, Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { onMounted, reactive, ref } from 'vue'
@@ -144,12 +151,13 @@ const onReset = () => {
 
 // 编辑操作
 const editApiFunc = (row: IArticleInfo) => {
-  console.log(row.id)
+  console.log(row.ID)
 }
 
 // 删除操作
 const delApiFunc = (row: IArticleInfo) => {
-  console.log(row.title)
+  delArticle(row.ID)
+  getTableData()
 }
 // 分页
 const handleSizeChange = (val: number) => {
@@ -166,6 +174,11 @@ const getTableData = async () => {
   const table = await getArticleList(searchInfo)
   tableData.value = table.data
   total.value = table.total
+}
+
+// 删除文章
+const delArticle = async (id: number) => {
+  await DelArticle({ id })
 }
 // 图片地址
 const imgUrl = (path: string): string => {

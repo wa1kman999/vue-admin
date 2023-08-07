@@ -3,7 +3,7 @@ import { IPaginationReq, IPaginationResp } from './common'
 
 // 分类信息信息
 export interface IArticleInfo {
-  id: number
+  ID: number
   title: string
   img: string
   desc: string
