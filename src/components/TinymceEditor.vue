@@ -106,12 +106,14 @@ const onClick = (e: any) => {
 onMounted(() => {
   tinymce.init({})
 })
+
 watch(
-  () => props.value,
-  (newValue) => {
-    state.content = newValue
+  () => state.content,
+  (content) => {
+    state.content = content
   }
 )
+
 watch(
   () => state.content,
   (newValue) => {

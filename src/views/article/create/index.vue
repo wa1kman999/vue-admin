@@ -76,8 +76,7 @@
       >
         <TinymceEditor
           class="tinymce-container"
-          v-model="form.content"
-          @on-click="getTxt"
+          @input="inputContent"
         />
       </el-form-item>
       <el-form-item>
@@ -109,6 +108,11 @@ const form = reactive({
   img: '',
   content: ''
 })
+
+const inputContent = (content: string) => {
+  form.content = content
+}
+
 // 分类选择项数组
 const categoryOptions = ref<ICategoryInfo[]>([])
 
@@ -118,7 +122,6 @@ const handleUpload = async ({ file }: { file: File }) => {
     file
   })
   form.img = filePath.path
-  console.log(form)
   ElMessage.success('上传成功')
 }
 
@@ -134,14 +137,6 @@ const getCategoryData = async () => {
 const onSubmit = async () => {
   await CreateArticle(form)
   ElMessage.success('新建成功')
-}
-
-// 获取编辑器的内容
-const getTxt = (txt: any) => {
-  console.log('粗发函数没有哦')
-  console.log(txt)
-  console.log(typeof (txt))
-  console.log(form.content)
 }
 
 onMounted(() => {

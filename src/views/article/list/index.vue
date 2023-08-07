@@ -155,8 +155,8 @@ const editApiFunc = (row: IArticleInfo) => {
 }
 
 // 删除操作
-const delApiFunc = (row: IArticleInfo) => {
-  delArticle(row.ID)
+const delApiFunc = async (row: IArticleInfo) => {
+  await delArticle(row.ID)
   getTableData()
 }
 // 分页
