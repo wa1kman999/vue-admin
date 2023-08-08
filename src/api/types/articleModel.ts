@@ -24,3 +24,12 @@ export interface pathInfo {
   path: string
 
 }
+// 单个文章
+export interface ArticleInfo {
+  ID: number
+  title: string
+  img: string
+  desc: string
+  category: ICategoryInfo
+  content: string
+}

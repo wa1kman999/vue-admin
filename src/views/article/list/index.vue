@@ -36,6 +36,7 @@
           <el-button
             type="primary"
             :icon="Plus"
+            @click="createArticle"
           >
             新增文章
           </el-button>
@@ -125,12 +126,11 @@
 <script lang="ts" setup>
 import { getArticleList, DelArticle } from '@/api/article'
 import { IArticleInfo } from '@/api/types/articleModel'
+import { router } from '@/router'
 import { Search, Refresh, Plus, Edit, Delete } from '@element-plus/icons-vue'
 import { onMounted, reactive, ref } from 'vue'
 
-// const page = ref(1)
 const total = ref(0)
-// const pageSize = ref(10)
 const tableData = ref<IArticleInfo[]>([])
 
 const searchInfo = reactive({
@@ -149,14 +149,19 @@ const onReset = () => {
   getTableData()
 }
 
+// 新增文章
+const createArticle = () => {
+  router.replace({ name: 'create_article' })
+}
+
 // 编辑操作
 const editApiFunc = (row: IArticleInfo) => {
-  console.log(row.ID)
+  router.replace({ name: 'create_article', params: { id: row.ID } })
 }
 
 // 删除操作
 const delApiFunc = async (row: IArticleInfo) => {
-  await delArticle(row.ID)
+  await DelArticle({ id: row.ID })
   getTableData()
 }
 // 分页
@@ -176,10 +181,6 @@ const getTableData = async () => {
   total.value = table.total
 }
 
-// 删除文章
-const delArticle = async (id: number) => {
-  await DelArticle({ id })
-}
 // 图片地址
 const imgUrl = (path: string): string => {
   return `${import.meta.env.VITE_API_BASEURL}/goblog/v1/article/img/${path}`

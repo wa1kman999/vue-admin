@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { IArticleListReq, IArticleListResp, pathInfo } from './types/articleModel'
+import { ArticleInfo, IArticleListReq, IArticleListResp, pathInfo } from './types/articleModel'
 
 // 获取文章列表
 export function getArticleList (data: IArticleListReq) {
@@ -11,7 +11,7 @@ export function getArticleList (data: IArticleListReq) {
 }
 
 // 上传文件
-export function uploadFile (data: {file: File}) {
+export function uploadFile (data: {file: Blob}) {
   const fd = new FormData()
   fd.append('file', data.file)
   return request<pathInfo>({
@@ -41,5 +41,15 @@ export function DelArticle (data: {
   return request<{}>({
     url: '/goblog/v1/article/' + data.id,
     method: 'DELETE'
+  })
+}
+
+// 新建文章
+export function getArticle (data: {
+  id: string}) {
+  return request<ArticleInfo>({
+    url: '/goblog/v1/article/' + data.id,
+    method: 'GET',
+    data
   })
 }

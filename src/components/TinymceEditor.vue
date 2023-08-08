@@ -16,7 +16,6 @@ import Editor from '@tinymce/tinymce-vue'
 import 'tinymce/themes/silver/theme' // 引用主题文件
 import 'tinymce/icons/default' // 引用图标文件
 import 'tinymce/models/dom'
-
 import 'tinymce/plugins/advlist' // 高级列表
 import 'tinymce/plugins/anchor' // 锚点
 import 'tinymce/plugins/autolink' // 自动链接
@@ -46,6 +45,7 @@ import 'tinymce/plugins/template' // 内容模板
 import 'tinymce/plugins/visualblocks' // 显示元素范围
 import 'tinymce/plugins/visualchars' // 显示不可见字符
 import 'tinymce/plugins/wordcount' // 字数统计
+import { uploadFile } from '@/api/article'
 const props = defineProps({
   value: {
     type: String,
@@ -87,15 +87,23 @@ const init = ref<RawEditorOptions>({
   // statusbar: false,  //最下方的元素路径和字数统计那一栏是否显示
   elementpath: false, // 元素路径是否显示
   content_css: ['tinymce/skins/content/default/content.css'],
-  menubar: 'file edit insert view format table'
+  menubar: 'file edit insert view format table',
   // content_style: 'p {margin: 5px 0; font-size: 14px}',
-  // images_upload_url: '/demo/upimg.php',  //后端处理程序的url
+  // 后端处理程序的url
+  // images_upload_url: import.meta.env.VITE_API_BASEURL + '/goblog/v1/article/img',
   // images_upload_base_path: '/demo',  //相对基本路径--关于图片上传建议查看--http://tinymce.ax-z.cn/general/upload-images.php
-  // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
-  // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
-  // images_upload_handler: (blobInfo: BlobInfo, progress: ProgressFn) => {
-  //   const img = 'data:image/jpeg;base64,' + blobInfo.base64()
-  // }
+  // 允许粘贴
+  paste_data_images: true,
+  // 自己上传
+  images_upload_handler: (blobInfo, _progress) => new Promise((resolve, reject) => {
+    if (blobInfo.blob().size / 1024 / 1024 > 2) {
+      reject(new Error('上传失败,图片大小请控制在2M内'))
+    } else {
+      uploadFile({ file: blobInfo.blob() }).then(res => {
+        resolve(import.meta.env.VITE_API_BASEURL + '/goblog/v1/article/img/' + res.path)
+      })
+    }
+  })
 })
 
 const emits = defineEmits(['input', 'onClick'])

@@ -29,7 +29,6 @@ const router = useRouter()
 const userStore = useUserStore()
 
 onMounted(() => {
-  console.log('打印')
   console.log(userStore.getUserInfo?.username)
 })
 

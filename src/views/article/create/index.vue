@@ -77,6 +77,7 @@
         <TinymceEditor
           class="tinymce-container"
           @input="inputContent"
+          :value="form.content"
         />
       </el-form-item>
       <el-form-item>
@@ -97,8 +98,9 @@ import TinymceEditor from '@/components/TinymceEditor.vue'
 import { UploadFilled } from '@element-plus/icons-vue'
 import { getCategoryList } from '@/api/category'
 import { ICategoryInfo } from '@/api/types/categoryModel'
-import { CreateArticle, uploadFile } from '@/api/article'
+import { CreateArticle, uploadFile, getArticle } from '@/api/article'
 import { ElMessage } from 'element-plus'
+import { router } from '@/router'
 
 // 提交表单
 const form = reactive({
@@ -139,10 +141,27 @@ const onSubmit = async () => {
   ElMessage.success('新建成功')
 }
 
-onMounted(() => {
-  // 获取分类的选项
+// 获取单个文章
+
+onMounted(async () => {
+  const id = router.currentRoute.value.params.id as string
+  if (id) {
+    const a = await getArticle({ id })
+    form.cid = a.category.ID
+    form.content = a.content
+    form.desc = a.desc
+    form.title = a.title
+    form.img = a.img
+    console.log('打印form:', form)
+  }
   getCategoryData()
-})
+}
+)
+
+// onMounted(() => {
+//   // 获取分类的选项
+//   getCategoryData()
+// })
 
 </script>
 
